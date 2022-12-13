@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.14, pytest-7.1.3, pluggy-1.0.0
+rootdir: /workspace
+collected 14 items
+tests/test_a_environment.py .                                            [  7%]
+tests/test_a_setup.py .                                                  [ 14%]
+tests/test_distances.py ...                                              [ 35%]
+tests/test_generate_regression_data.py .                                 [ 42%]
+tests/test_knn.py F.FFF                                                  [ 78%]
+tests/test_metrics.py .                                                  [ 85%]
+tests/test_polynomial_regression.py ..                                   [100%]
+=================================== FAILURES ===================================
+_____________________________ test_knn_aggregators _____________________________
+>       assert np.all(mode_aggregator.predict(X) == 1), msg
+tests/test_knn.py:46:
+>           return bound(*args, **kwds)
+E           ValueError: kth(=5) out of bounds (5)
+/usr/local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:57: ValueError
+______________________________ test_knn_k_is_big _______________________________
+>           preds = model.predict(features)
+tests/test_knn.py:86:
+>           return bound(*args, **kwds)
+E           ValueError: kth(=127) out of bounds (127)
+/usr/local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:57: ValueError
+_____________________________ test_knn_comparisons _____________________________
+>           acc_a = run(data_path, fraction, **kwargs_a)
+tests/test_knn.py:108:
+>               labels[i,0] = self.targets_train[index[:self.n_neighbors],0]
+E               ValueError: setting an array element with a sequence.
+src/k_nearest_neighbor.py:115: ValueError
+_____________________________ test_knn_regression ______________________________
+>                   mse = mean_squared_error(y, model.predict(x))
+tests/test_knn.py:133:
+>               labels[i,0] = self.targets_train[index[:self.n_neighbors],0]
+E               ValueError: setting an array element with a sequence.
+src/k_nearest_neighbor.py:115: ValueError
+=============================== warnings summary ===============================
+tests/test_knn.py::test_knn_k_is_1
+tests/test_knn.py::test_knn_k_is_1
+tests/test_knn.py::test_knn_k_is_1
+  /workspace/src/distances.py:90: RuntimeWarning: invalid value encountered in divide
+    D = np.dot(X,Y.T)/(np.linalg.norm(Y[None, :, :], axis=-1)*np.linalg.norm(X[:, None, :], axis=-1))
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_knn.py::test_knn_aggregators - ValueError: kth(=5) out of b...
+FAILED tests/test_knn.py::test_knn_k_is_big - ValueError: kth(=127) out of bo...
+FAILED tests/test_knn.py::test_knn_comparisons - ValueError: setting an array...
+FAILED tests/test_knn.py::test_knn_regression - ValueError: setting an array ...
+================== 4 failed, 10 passed, 3 warnings in 33.23s ===================
